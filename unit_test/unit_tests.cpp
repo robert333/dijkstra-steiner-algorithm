@@ -1,0 +1,3 @@
+// unit_tests.cpp
+#define CATCH_CONFIG_MAIN
+#include "catch/catch.hpp"

@@ -1,0 +1,5 @@
+set size ratio -1
+set style line 1 lc rgb '#0060ad' lt 1 lw 2 pt 7 ps 1.5
+set style line 2 lc rgb 'red' lt 1 lw 2 pt 5 ps 2
+plot data_filepath index 0 title 'Steiner Points and Edges' with linespoints ls 1, \
+     ''            index 1 title 'Terminals' with points ls 2
