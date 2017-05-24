@@ -25,10 +25,10 @@ public:
 
 	Cost lower_bound(Key const& key) const
 	{
-//		return 0;
-		Cost const lower_bound = bounding_box(key);
-//		std::cout << "lower_bound for " << key << " is " << lower_bound << "\n";
-		return lower_bound;
+		Cost const lower_bound_bb = bounding_box(key);
+		Cost const lower_bound_mst = 0;//minimum_spanning_tree(key);
+//		std::cout << "lower_bound for " << key << " is bb = " << lower_bound_bb << " and mst = " << lower_bound_mst << "\n";
+		return std::max(lower_bound_bb, lower_bound_mst / 2);
 	}
 
 private:
@@ -82,6 +82,55 @@ private:
 		}
 
 		return (max_point - min_point).norm();
+	}
+
+	Cost minimum_spanning_tree(Key const& key) const
+	{
+		std::vector<Point3d<Coord>> points = {_hanan_grid.point(key.vertex()), _hanan_grid.point(_hanan_grid.vertex(_root_terminal))};
+
+		for (std::size_t i = 0; i < key.terminals().size(); ++i) {
+			if (not key.terminals().at(i)) {
+				points.push_back(_hanan_grid.point(_hanan_grid.vertex(_other_terminals.at(i))));
+			}
+		}
+
+		assert(not points.empty());
+
+		std::vector<std::size_t> remaining_points(points.size());
+		std::vector<Coord> distances(points.size(), std::numeric_limits<Coord>::max());
+		distances.at(distances.size() - 1) = 0;
+
+		for (std::size_t i = 0; i < remaining_points.size(); ++i) {
+			remaining_points.at(i) = i;
+		}
+
+		assert(points.size() == remaining_points.size());
+		assert(points.size() == distances.size());
+
+		auto const compare_function = [&](std::size_t const index_1, std::size_t const index_2) { return distances.at(index_1) > distances.at(index_2); };
+
+		Coord cost = 0;
+
+		while (not remaining_points.empty()) {
+			std::size_t current_index = remaining_points.back();
+			remaining_points.pop_back();
+
+			cost += distances.at(current_index);
+			distances.at(current_index) = -1;
+
+			for (std::size_t i = 0; i < distances.size(); ++i) {
+				if (distances.at(i) != -1) {
+					Coord const distance = (points.at(current_index) - points.at(i)).norm();
+					if (distances.at(i) > distance) {
+						distances.at(i) = distance;
+					}
+				}
+			}
+
+			std::sort(remaining_points.begin(), remaining_points.end(), compare_function);
+		}
+
+		return cost;
 	}
 
 private:

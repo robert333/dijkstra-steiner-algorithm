@@ -30,7 +30,7 @@ public:
 
 	T norm() const
 	{
-		return x() + y() + z();
+		return std::abs(x()) + std::abs(y()) + std::abs(z());
 	}
 
 	Point3d operator-(Point3d const& rhs) const
