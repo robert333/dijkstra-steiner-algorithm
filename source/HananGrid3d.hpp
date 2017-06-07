@@ -136,7 +136,7 @@ typename HananGrid3d<Coord>::Value HananGrid3d<Coord>::distance_to_neighbour(Ver
 		case SOUTH : return compute_y_coord(vertex) - compute_y_coord(neighbour);
 		case UP : return compute_z_coord(neighbour) - compute_z_coord(vertex);
 		case DOWN : return compute_z_coord(vertex) - compute_z_coord(neighbour);
-		default: assert(false);
+		default: throw;
 	}
 }
 
@@ -150,7 +150,7 @@ bool HananGrid3d<Coord>::has_neighbour(Vertex const vertex, Direction3d const di
 		case SOUTH : return compute_y_index(vertex) > 0;
 		case UP : return compute_z_index(vertex) + 1 < num_z_coords();
 		case DOWN : return compute_z_index(vertex) > 0;
-		default: assert(false);
+		default: throw;
 	}
 }
 
@@ -164,7 +164,7 @@ typename HananGrid3d<Coord>::Vertex HananGrid3d<Coord>::get_neighbour(Vertex con
 		case SOUTH : return vertex_index - num_x_coords();
 		case UP : return vertex_index + (num_x_coords() * num_y_coords());
 		case DOWN : return vertex_index - (num_x_coords() * num_y_coords());
-		default: assert(false);
+		default: throw;
 	}
 }
 

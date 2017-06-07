@@ -20,12 +20,12 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
+	// compute a optimum steiner tree with the Dijkstra-Steiner algorithm
 	SteinerTree3d<int> const steiner_tree = dijkstra_steiner_algorithm(instance_file);
 
 	std::cout << "A optimal Steiner Tree has length " << steiner_tree.cost() << "\n";
 
-
-
+	// create a gnuplot file of the computed steiner tree if it is demanded
 	bool gnuplot = false;
 
 	if (argc > 2) {
@@ -47,6 +47,7 @@ int main(int argc, char* argv[])
 		gnuplot_2d_data_file.close();
 		gnuplot_3d_data_file.close();
 
+#ifndef NDEBUG
 		std::string const command_2d = "gnuplot -persistent -e \"data_filepath='" + instance_filepath + "_gnuplot_2d_data.dat'\" gnuplot/plot_2d_steiner_tree";
 		std::string const command_3d = "gnuplot -persistent -e \"data_filepath='" + instance_filepath + "_gnuplot_3d_data.dat'\" gnuplot/plot_3d_steiner_tree";
 
@@ -58,6 +59,7 @@ int main(int argc, char* argv[])
 
 		std::cout << "Enter to exit the program...";
 		std::cin.ignore().get();
+#endif
 	}
 
 	return 0;

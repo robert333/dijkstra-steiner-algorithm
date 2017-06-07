@@ -10,7 +10,9 @@ Point3d<int>::Vector parse_input(std::istream& instance)
 
 	std::getline(instance, line);
 
+#ifndef NDEBUG
 	int n = std::stoi(line);
+#endif
 
 	assert(n >= 0);
 
@@ -38,34 +40,34 @@ Point3d<int>::Vector parse_input(std::istream& instance)
 
 SteinerTree3d<int> dijkstra_steiner_algorithm(std::istream& instance, std::size_t root_terminal)
 {
-	std::cout << "\n== Dijkstra-Steiner Algorithm ==\n\n";
+	debug_output("\n== Dijkstra-Steiner Algorithm ==\n\n");
 
 	Point3d<int>::Vector const terminal_points = parse_input(instance);
 
-	std::cout << "Terminals\n";
+	debug_output("Terminals\n");
 
 	for (Point3d<int> const& terminal_point : terminal_points) {
-		std::cout << "\t" << terminal_point << "\n";
+		debug_output("\t" + terminal_point.to_string() + "\n");
 	}
 
-	std::cout << "\nHananGrid3\n";
+	debug_output("\nHananGrid3\n");
 
 	HananGrid3d<int> const hanan_grid(terminal_points);
 	DijkstraSteinerAlgorithm<int, 20>::TerminalIndex const real_root_terminal = root_terminal % hanan_grid.num_terminals();
 
-	std::cout << "\nDijkstraSteinerAlgorithm\n";
+	debug_output("\nDijkstraSteinerAlgorithm\n");
 
 	DijkstraSteinerAlgorithm<int, 20> dijkstra_steiner_algorithm(terminal_points, real_root_terminal);
 
-	std::cout << "\nPreparation\n";
+	debug_output("\nPreparation\n");
 
 	dijkstra_steiner_algorithm.preparation();
 
-	std::cout << "\nRun\n";
+	debug_output("\nRun\n");
 
 	int const minimum_cost = dijkstra_steiner_algorithm.run();
 
-	std::cout << "\nBacktrack\n";
+	debug_output("\nBacktrack\n");
 
 	SteinerTreeKey<20> const root_terminal_key(hanan_grid.vertex(real_root_terminal), BitSet<20>(terminal_points.size() - 1).flip());
 
@@ -79,7 +81,7 @@ SteinerTree3d<int> dijkstra_steiner_algorithm(std::istream& instance, std::size_
 
 	SteinerTree3d<int> const steiner_tree(terminal_points, edges, minimum_cost);
 
-	std::cout << "\n================================\n";
+	debug_output("\n================================\n");
 
 	return steiner_tree;
 }

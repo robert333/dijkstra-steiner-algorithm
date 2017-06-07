@@ -23,7 +23,9 @@ public:
 	{
 		assert(not is_empty());
 		Label top_label = *_queue.begin();
+#ifndef NDEBUG
 		std::size_t size = _queue.size();
+#endif
 		_queue.erase(_queue.begin());
 		assert(_queue.size() + 1 == size);
 		return top_label;

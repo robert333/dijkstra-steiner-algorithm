@@ -55,7 +55,7 @@ public:
 			Key const steiner_tree_key(vertex, terminals);
 			Label const terminal_label(steiner_tree_key, 0, 0, {Key::invalid(), Key::invalid()});
 
-			std::cout << "terminal_label = " << terminal_label << "\n";
+			debug_output("terminal_label = " + terminal_label.to_string() + "\n");
 
 			_steiner_trees_manager.update(terminal_label);
 		}
@@ -125,8 +125,8 @@ public:
 
 		typename Label::Backtrack const& backtrack_item = _steiner_trees_manager.get_backtrack(key);
 
-		std::cout << "backtrack key " << key << " with cost " << _steiner_trees_manager.get_minimum_cost(key)
-				  << " and backtrack {" << backtrack_item.first << ", " << backtrack_item.second << "}\n";
+		debug_output("backtrack key " + key.to_string() + " with cost " + std::to_string(_steiner_trees_manager.get_minimum_cost(key))
+					 + " and backtrack {" + backtrack_item.first.to_string() + ", " + backtrack_item.second.to_string() + "}\n");
 
 		if (backtrack_item.first.is_invalid() and backtrack_item.second.is_invalid()) {
 			return {};
