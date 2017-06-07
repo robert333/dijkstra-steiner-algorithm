@@ -27,14 +27,11 @@ public:
 	{
 		assert(not _steiner_tree_label_queue.is_empty());
 
-//		std::cout << "\n\n";
-
+		// since we have also outdated labels in our queue due to our update routine (see below)
+		// we need to check each label if it is processed already with a smaller value
 		do {
 			label = _steiner_tree_label_queue.top_and_pop();
-//			std::cout << "check label " << label << "\n";
 		} while (_steiner_tree_label_table.is_processed(label.key()));
-
-//		std::cout << "\nprocess label " << label << "\n";
 
 		// mark label as processed
 		_steiner_tree_label_table.set_label_information(label.key(), label.cost(), label.backtrack());
@@ -49,6 +46,10 @@ public:
 
 	bool update(Label const& label)
 	{
+		// we are not doing a decrease key operation
+		// instead we are just inserting the new key
+		// then the right label will be selected first due to the minimum queue
+		// and we ignore all other "same" labels after that
 		if (not is_processed(label.key())) {
 			_steiner_tree_label_queue.insert(label);
 		}

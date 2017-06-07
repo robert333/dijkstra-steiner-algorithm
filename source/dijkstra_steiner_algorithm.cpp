@@ -65,6 +65,7 @@ SteinerTree3d<int> dijkstra_steiner_algorithm(std::istream& instance, std::size_
 
 	debug_output("\nRun\n");
 
+	// start core algorithm
 	int const minimum_cost = dijkstra_steiner_algorithm.run();
 
 	debug_output("\nBacktrack\n");

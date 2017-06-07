@@ -70,6 +70,8 @@ public:
 		while (_steiner_trees_manager.next(label)) {
 			typename SteinerTreeLabel<num_terminals>::Cost const label_cost = label.cost();
 
+			// check for the current vertex each direction and so each neighbour
+			// and update it with the new cost
 			for (Direction3d const& direction : directions_3d()) {
 				typename HananGrid3d<Coord>::Vertex neighbour;
 				typename HananGrid3d<Coord>::Value distance;
@@ -81,12 +83,7 @@ public:
 												steiner_tree_lower_bound.lower_bound(neighbour_key),
 												{label.key(), Key::invalid()});
 
-//					std::cout << "neighbour_label = " << neighbour_label << "\n";
-
-					if (_steiner_trees_manager.update(neighbour_label)) {
-//						std::cout << "update label " << label << " with cost " << label.cost()
-//								  << " and backtrack {" << label << "}\n";
-					}
+					_steiner_trees_manager.update(neighbour_label);
 				}
 			}
 
@@ -95,6 +92,8 @@ public:
 
 			assert(other_key.terminals().none());
 
+			// using the bitset enumerator we check each appropriate label as required by the algorithm
+			// and update it with the new cost
 			while (bitset_enumerator.next(other_key.non_const_terminals())) {
 				assert(other_key.terminals().any());
 
@@ -105,13 +104,7 @@ public:
 											steiner_tree_lower_bound.lower_bound(union_key),
 											{label.key(), other_key});
 
-//					std::cout << "other_label = " << union_label << "\n";
-//					std::cout << "union_label = " << union_label << "\n";
-
-					if (_steiner_trees_manager.update(union_label)) {
-//						std::cout << "update label " << union_label << " with cost " << label.cost()
-//								  << " and backtrack {" << label << "}\n";
-					}
+					_steiner_trees_manager.update(union_label);
 				}
 			}
 		}
