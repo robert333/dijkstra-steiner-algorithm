@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	std::cout << "A optimal Steiner Tree has length " << steiner_tree.cost() << "\n";
+	std::cout << steiner_tree.cost() << "\n";
 
 	// create a gnuplot file of the computed steiner tree if it is demanded
 	bool gnuplot = false;
