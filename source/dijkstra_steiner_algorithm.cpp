@@ -30,7 +30,7 @@ Point3d<int>::Vector parse_input(std::istream& instance)
 	}
 
 	if (static_cast<std::size_t>(n) != terminal_points.size()) {
-		throw;
+		throw std::exception();
 	}
 
 	return terminal_points;
