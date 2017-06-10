@@ -34,6 +34,9 @@ public:
 		assert(_hanan_grid.num_terminals() >= 0);
 	}
 
+	/**
+	 * create all start labels, i.e. labels for the terminals
+	 */
 	void preparation()
 	{
 		for (TerminalIndex terminal_index = 0; terminal_index < _hanan_grid.num_terminals(); ++terminal_index) {
@@ -61,6 +64,10 @@ public:
 		}
 	}
 
+	/**
+	 * Main Algorithm for computing a optimal Steiner Tree
+	 * @return the minimum cost of such a tree
+	 */
 	Value run()
 	{
 		SteinerTreeLowerBound<Coord, num_terminals> const steiner_tree_lower_bound(_hanan_grid, _root_terminal, _other_terminals);
@@ -112,6 +119,10 @@ public:
 		return _steiner_trees_manager.get_minimum_cost(label.key());
 	}
 
+	/**
+	 * Starting with given key, this routine computes the edges of the computed optimum Steiner Tree
+	 * @return the edge set of the optimum Steiner Tree
+	 */
 	std::vector<Edge> backtrack(Key const& key)
 	{
 		assert(not key.is_invalid());

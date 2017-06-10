@@ -7,6 +7,9 @@
 #include "BitSet.hpp"
 #include "Output.hpp"
 
+/**
+ * Class for storing the original SteinerTreeKey
+ */
 template<std::size_t num_terminals>
 class SteinerTreeKey : public Output {
 public:

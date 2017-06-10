@@ -26,7 +26,7 @@ public:
 	Cost lower_bound(Key const& key) const
 	{
 		// we are just using the bounding box lower bound
-		// since all other lower bounds are not helping a lot compared to the needed run time
+		// since all other lower bounds are not helping a lot compared to the run time of these routines
 		Cost const lower_bound_bb = bounding_box(key);
 		Cost const lower_bound_mst = 0;//minimum_spanning_tree(key);
 //		std::cout << "lower_bound for " << key << " is bb = " << lower_bound_bb << " and mst = " << lower_bound_mst << "\n";

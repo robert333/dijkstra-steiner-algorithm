@@ -4,6 +4,10 @@
 
 #include "SteinerTreeKey.hpp"
 
+/**
+ * Class for storing a Steiner Tree Label with addtional informations
+ * The original Steiner Tree Label from the algorithm is implemented in SteinerTreeKey
+ */
 template<std::size_t num_terminals>
 class SteinerTreeLabel : public Output {
 public:

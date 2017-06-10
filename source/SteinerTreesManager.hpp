@@ -23,6 +23,10 @@ public:
 		_root_terminal(root_terminal)
 	{}
 
+	/**
+	 * Computes the next valid label in the queue/heap and saves it in the given reference
+	 * @return false iff we reach the goal label (root, T - root)
+	 */
 	bool next(Label& label)
 	{
 		assert(not _steiner_tree_label_queue.is_empty());
@@ -44,6 +48,10 @@ public:
 		return _steiner_tree_label_table.is_processed(key);
 	}
 
+	/**
+	 * "updates" for the given label the cost in the queue/heap
+	 * @return false if we want to update a processed label
+	 */
 	bool update(Label const& label)
 	{
 		// we are not doing a decrease key operation

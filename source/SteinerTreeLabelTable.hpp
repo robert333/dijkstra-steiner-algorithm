@@ -5,6 +5,9 @@
 #include "BitSetTable.hpp"
 #include "SteinerTreeLabel.hpp"
 
+/**
+ * Class to store Label informations like the current cost or the backtrack edges
+ */
 template<std::size_t num_terminals>
 class SteinerTreeLabelTable {
 public:

@@ -10,11 +10,7 @@ Point3d<int>::Vector parse_input(std::istream& instance)
 
 	std::getline(instance, line);
 
-#ifndef NDEBUG
 	int n = std::stoi(line);
-#endif
-
-	assert(n >= 0);
 
 	int x;
 	int y;
@@ -33,7 +29,9 @@ Point3d<int>::Vector parse_input(std::istream& instance)
 		terminal_points.emplace_back(x, y, z);
 	}
 
-	assert(static_cast<std::size_t>(n) == terminal_points.size());
+	if (static_cast<std::size_t>(n) != terminal_points.size()) {
+		throw;
+	}
 
 	return terminal_points;
 }
