@@ -17,7 +17,7 @@ enum Direction3d {
 
 inline std::array<Direction3d, NUM_3D_DIRECTIONS> directions_3d()
 {
-	return {EAST, WEST, NORTH, SOUTH, UP, DOWN};
+	return {{EAST, WEST, NORTH, SOUTH, UP, DOWN}};
 }
 
 #endif

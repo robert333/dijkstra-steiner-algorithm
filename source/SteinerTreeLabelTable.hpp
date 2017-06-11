@@ -19,7 +19,7 @@ public:
 	struct LabelInformation {
 		bool initialised = false;
 		Cost minimum_cost = std::numeric_limits<Cost>::max();
-		Backtrack backtrack = {Key::invalid(), Key::invalid()};
+		Backtrack backtrack = std::make_pair<Key, Key>(Key::invalid(), Key::invalid());
 	};
 
 public:
