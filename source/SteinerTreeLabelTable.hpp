@@ -17,9 +17,17 @@ public:
 	using Backtrack = typename Label::Backtrack;
 
 	struct LabelInformation {
-		bool initialised = false;
-		Cost minimum_cost = std::numeric_limits<Cost>::max();
-		Backtrack backtrack = std::make_pair<Key, Key>(Key::invalid(), Key::invalid());
+		LabelInformation(bool const initialised = false,
+						 Cost const minimum_cost = std::numeric_limits<Cost>::max(),
+						 Backtrack const& backtrack = std::make_pair<Key, Key>(Key::invalid(), Key::invalid())) :
+			initialised(initialised),
+			minimum_cost(minimum_cost),
+			backtrack(backtrack)
+		{}
+
+		bool initialised;
+		Cost minimum_cost;
+		Backtrack backtrack;
 	};
 
 public:
